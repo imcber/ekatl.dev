@@ -2,31 +2,16 @@
 import Header from "../../components/Header.astro";
 import StackContainer from "../../components/Stack/StackContainer.astro";
 import Layout from "../../layouts/Layout.astro";
-import { getCollection, type CollectionEntry } from "astro:content";
+import { locales, parseLocale } from "../../i18n/config";
 
 export async function getStaticPaths() {
-  const pages = await getCollection("home");
-
-  const availableLangs = pages.map((page) => page.id.split("/")[0]);
-
-  const paths = pages.map((page) => {
-    const [lang] = page.id.split("/");
-    return { params: { lang }, props: { page, availableLangs } };
-  });
-
-  return paths;
+  return locales.map((lang) => ({ params: { lang } }));
 }
 
-interface Props {
-  page: CollectionEntry<"home">;
-  availableLangs: string[];
-}
-
-const { lang } = Astro.params;
-const { page, availableLangs } = Astro.props;
+const lang = parseLocale(Astro.params.lang);
 ---
 
-<Layout currentLang={lang}>
-  <Header currentLang={lang} showBackButton isAbsolute={false} />
-  <StackContainer />
+<Layout currentLang={lang} currentRoute="stack">
+  <Header currentLang={lang} currentRoute="stack" isAbsolute={false} />
+  <StackContainer currentLang={lang} />
 </Layout>

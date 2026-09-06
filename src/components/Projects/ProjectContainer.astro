@@ -1,5 +1,7 @@
 ---
 import ProjectCard from "./ProjectCard.astro";
+import ContextualBack from "../ContextualBack.astro";
+import type { Locale } from "../../i18n/config";
 
 export interface Project {
   id: string;
@@ -18,20 +20,23 @@ interface ProjectsEntries {
   title_rol: string;
   title_about: string;
   title_task: string;
+  title_visit_site: string;
   work: Project[];
 }
 
 interface Props {
   projectsEntries: ProjectsEntries;
+  currentLang: Locale;
 }
 
-const { projectsEntries } = Astro.props;
+const { projectsEntries, currentLang } = Astro.props;
 ---
 
 <div class="w-full px-4 md:px-7 py-10">
   <div
-    class="w-full lg:w-1/3 flex items-start justify-center lg:justify-start lg:px-20"
+    class="mx-auto flex w-full max-w-7xl flex-col items-center lg:items-start lg:px-20"
   >
+    <ContextualBack currentLang={currentLang} />
     <p class="text-5xl font-extrabold mb-2">
       {projectsEntries.title_page}
     </p>
@@ -42,7 +47,10 @@ const { projectsEntries } = Astro.props;
     >
       {
         projectsEntries?.work.map((project) => (
-          <ProjectCard project={project} />
+          <ProjectCard
+            project={project}
+            visitSiteLabel={projectsEntries.title_visit_site}
+          />
         ))
       }
     </div>

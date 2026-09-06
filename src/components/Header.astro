@@ -1,57 +1,54 @@
 ---
 import { getCollection } from "astro:content";
+import { locales, type Locale } from "../i18n/config";
+import { localeFromEntryId } from "../i18n/content";
+import { localizedPath, type RouteId } from "../i18n/routes";
 
 interface Props {
-  currentLang: string;
-  showBackButton?: boolean;
+  currentLang: Locale;
+  currentRoute: RouteId;
   isDarkmode?: boolean;
   isAbsolute?: boolean;
 }
 
 const {
   currentLang,
-  showBackButton = false,
+  currentRoute,
   isDarkmode = false,
   isAbsolute = true,
 } = Astro.props;
 
 const allEntries = await getCollection("header");
 
-const availableLangs = allEntries.map((page) => page.id.split("/")[0]);
-
 const entryData = allEntries.find(
-  (page) => page.id.split("/")[0] === currentLang
+  (page) => localeFromEntryId(page.id) === currentLang,
 )?.data;
 
 if (!entryData) {
   throw new Error(
-    `No se encontró la colección 'header' para el idioma: ${currentLang}`
+    `No se encontró la colección 'header' para el idioma: ${currentLang}`,
   );
 }
 
-const prefix = 'ektl.dev'
-const currentPath = Astro.url.pathname;
-const baseSlug = currentPath.replace(new RegExp(`^/ektl.dev/${currentLang}`), "");
-console.log({currentPath, baseSlug});
-
-const homeHref = `/${prefix}/${currentLang}/`;
+const homeHref = localizedPath(currentLang, "home");
 
 const navLinks = [
   {
-    href: `/${prefix}/${currentLang}/about-me`,
+    route: "about",
+    href: localizedPath(currentLang, "about"),
     label: entryData["about-me"],
   },
   {
-    href: `/${prefix}/${currentLang}/projects`,
+    route: "projects",
+    href: localizedPath(currentLang, "projects"),
     label: entryData.projects,
   },
   {
-    href: `/${prefix}/${currentLang}/stack`,
+    route: "stack",
+    href: localizedPath(currentLang, "stack"),
     label: entryData.stack,
   },
-];
-
-const strokeColor = isDarkmode ? "#10160a" : "#f2f5f3";
+] satisfies Array<{ route: RouteId; href: string; label: string }>;
 ---
 
 <div
@@ -65,57 +62,31 @@ const strokeColor = isDarkmode ? "#10160a" : "#f2f5f3";
     class="flex md:justify-end items-center text-lg md:text-2xl font-sans flex-wrap"
   >
     <div class="w-full md:w-5/6 flex justify-between items-center">
-      <div class="mx-2 md:mx-4 md:mr-auto">
-        {
-          showBackButton ? (
-            <a
-              href={homeHref}
-              class="cursor-pointer hover:text-principal text-4xl font-extrabold transition-all duration-300"
-              aria-label="Back"
-            >
-              <svg
-                width="1em"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" stroke-width="0" />
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <g id="SVGRepo_iconCarrier">
-                  <g id="Back">
-                    <path
-                      id="Vector"
-                      d="M7 13L3 9M3 9L7 5M3 9H16C18.7614 9 21 11.2386 21 14C21 16.7614 18.7614 19 16 19H11"
-                      stroke={strokeColor}
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </g>
-                </g>
-              </svg>
-            </a>
-          ) : (
-            <a href={homeHref} class="cursor-pointer text-principal">
-              ektl.dev
-            </a>
-          )
-        }
+      <div class="mx-2 flex items-center gap-2 md:mx-4 md:mr-auto">
+        <a
+          href={homeHref}
+          class:list={[
+            "cursor-pointer transition-colors duration-300",
+            isDarkmode
+              ? "hover:text-secondary"
+              : "text-principal hover:text-secondary_light",
+          ]}
+          aria-label={entryData.home}
+        >
+          ektl.dev
+        </a>
       </div>
 
       {
         navLinks.map((link) => (
           <a
-          class:list={[
-                "cursor-pointer mx-2 sm:mx-4 font-bold hover:text-secondary_light duration-300",
-                currentPath === link.href && isDarkmode && "text-secondary_light",
-                currentPath === link.href && !isDarkmode && "text-principal",
-                currentPath.replaceAll("/","") === currentLang && "text-principal"
-              ]}
+            class:list={[
+              "cursor-pointer mx-2 sm:mx-4 font-bold hover:text-secondary_light duration-300",
+              currentRoute === link.route &&
+                isDarkmode &&
+                "text-secondary_light",
+              currentRoute === link.route && !isDarkmode && "text-principal",
+            ]}
             href={link.href}
           >
             {link.label}
@@ -127,14 +98,16 @@ const strokeColor = isDarkmode ? "#10160a" : "#f2f5f3";
     <div class="w-full md:w-1/6">
       <div class="mt-4 ml-auto sm:m-0 sm:mx-4 mr-auto">
         {
-          availableLangs.map((language) => (
+          locales.map((language) => (
             <a
               class:list={[
                 "mr-1 cursor-pointer hover:text-secondary_light transition-all duration-300",
-                currentLang === language && isDarkmode && "text-secondary_light",
+                currentLang === language &&
+                  isDarkmode &&
+                  "text-secondary_light",
                 currentLang === language && !isDarkmode && "text-principal",
               ]}
-              href={`/${prefix}/${language}${baseSlug}`}
+              href={localizedPath(language, currentRoute)}
             >
               [ {language} ]
             </a>

@@ -1,20 +1,50 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
-import lineClamp from "@tailwindcss/line-clamp";
+
+const basePath = "/ektl.dev/";
+const defaultLocale = "es";
+const defaultLocalePath = `${basePath}${defaultLocale}/`;
+const redirectEntryPaths = new Set(["/", basePath.slice(0, -1)]);
+
+function redirectToDefaultLocale() {
+  const redirect = (req, res, next) => {
+    const pathname = new URL(req.url ?? "/", "http://localhost").pathname;
+
+    if (!redirectEntryPaths.has(pathname)) {
+      next();
+      return;
+    }
+
+    res.statusCode = 302;
+    res.setHeader("Location", defaultLocalePath);
+    res.end();
+  };
+
+  return {
+    name: "redirect-to-default-locale",
+    configureServer(server) {
+      return () => {
+        // Run before Astro strips the configured base path from the request.
+        server.middlewares.stack.unshift({ route: "", handle: redirect });
+      };
+    },
+  };
+}
 
 export default defineConfig({
   i18n: {
     locales: ["es", "en"],
-    defaultLocale: "es",
+    defaultLocale,
     routing: {
-      prefixDefaultLocale:true
-    }
+      prefixDefaultLocale: true,
+    },
   },
 
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [redirectToDefaultLocale(), tailwindcss()],
   },
 
-  base: '/ektl.dev/', 
-  site: "https://ektl.dev",
+  base: basePath,
+  site: "https://imcber.github.io",
+  trailingSlash: "always",
 });

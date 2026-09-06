@@ -4,7 +4,38 @@
   "title_rol": "Rol",
   "title_about": "About",
   "title_task": "Task",
+  "title_visit_site": "Visit site",
   "work": [
+    {
+      "id": "nubia",
+      "name": "Nubia",
+      "about": "Nubia is a conversational agent that allows users to book and quote flights directly through WhatsApp, including payment within the same conversation.",
+      "task": "I developed the agent's backend in Python, integrating a language model (LLM) to understand user intent and connecting it with the booking engine. Built on a hexagonal, event-driven architecture for a seamless chat experience.",
+      "year": "2024 - Present",
+      "rol": "Backend",
+      "url": "https://tarmexico.com/",
+      "tags": ["python", "llm", "whatsapp", "event-driven"]
+    },
+    {
+      "id": "wallets",
+      "name": "Wallets Migration — Ganalottodo",
+      "about": "Redesign and migration of Ganalottodo's wallet system toward a new architecture based on Blnk (ledger), unifying multiple wallets into a consistent model and reinforcing balance integrity.",
+      "task": "I led the redesign and migration of the wallet system, handling the migration design and the safe transfer of data and balances, with the backend built in Java and Spring.",
+      "year": "2024 - 2025",
+      "rol": "Backend",
+      "url": "https://www.ganalottodo.com/",
+      "tags": ["java", "spring", "blnk", "ledger"]
+    },
+    {
+      "id": "coppel",
+      "name": "Coppel App",
+      "about": "Working on the Coppel app as a frontend developer was a challenge, but I managed to adapt and successfully publish changes to the app.",
+      "task": "I focused mainly on understanding the data structure for implementing different analytics methods, as well as building UI views using Compose.",
+      "year": "2024 - 2025",
+      "rol": "FrontEnd",
+      "url": "https://play.google.com/store/apps/details?id=com.coppel.coppelapp",
+      "tags": ["kotlin", "compose", "android", "firebase"]
+    },
     {
       "id": "tar",
       "name": "TAR México",
@@ -14,26 +45,6 @@
       "rol": "Fullstack",
       "url": "https://tarmexico.com/",
       "tags": ["js", "java", "spring", "react", "open-pay"]
-    },
-    {
-      "id": "coppel",
-      "name": "Coppel App",
-      "about": " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur quasi illo quos quidem expedita eaque fugiat dolorum rerum magnam quia aliquam esse explicabo sunt reprehenderit eligendi totam, odio alias unde!",
-      "task": " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur quasi illo quos quidem expedita eaque fugiat dolorum rerum magnam quia aliquam esse explicabo sunt reprehenderit eligendi totam, odio alias unde!",
-      "year": "2025 - Present",
-      "rol": "FrontEnd",
-      "url": "https://play.google.com/store/apps/details?id=com.coppel.coppelapp",
-      "tags": ["kotlin", "compose", "android", "firebase"]
-    },
-    {
-      "id": "ganalottodo",
-      "name": "Ganalottodo",
-      "about": "Ganalottodo is a site authorized by Pronósticos that allows users to participate in and enjoy their preferred games and draws. During 2022, we developed a ticket distribution system for the raffle of tickets for that year's World Cup, the product was called 'Lánzate al mundial'.",
-      "task": "I entered this project mainly for the development of the raffle system for the World Cup, adding different functions for the correct selection of the winner. Once the product was finished, I maintained the platform's services.",
-      "year": "2021 - 2022",
-      "rol": "Backend",
-      "url": "https://www.ganalottodo.com/#/landing/home",
-      "tags": ["angular", "java", "spring", "nodejs"]
     },
     {
       "id": "needed",
@@ -54,16 +65,6 @@
       "rol": "Backend",
       "url": "https://www.uniken.com/",
       "tags": ["python", "js", "fastApi", "mongo"]
-    },
-    {
-      "id": "worqout",
-      "name": "Worqout",
-      "about": " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur quasi illo quos quidem expedita eaque fugiat dolorum rerum magnam quia aliquam esse explicabo sunt reprehenderit eligendi totam, odio alias unde!",
-      "task": " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur quasi illo quos quidem expedita eaque fugiat dolorum rerum magnam quia aliquam esse explicabo sunt reprehenderit eligendi totam, odio alias unde!",
-      "year": "2021 - 2022",
-      "rol": "FrontEnd",
-      "url": "https://play.google.com/store/apps/details?id=com.coppel.coppelapp",
-      "tags": ["react", "nodejs", "js"]
     }
   ]
 }

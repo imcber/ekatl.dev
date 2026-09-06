@@ -1,6 +1,4 @@
 ---
-import { Image } from "astro:assets";
-import linkArrow from "../../assets/common/right-arrow-principal-color.svg";
 import Background3D from "./Background3D.astro";
 import Tooltip from "./Tooltip.astro";
 
@@ -18,22 +16,10 @@ interface Greetings {
 
 interface Props {
   greetings: Greetings;
-  currentLang: string;
 }
 
 const {
-  greetings: {
-    hello,
-    name,
-    rest,
-    alias,
-    profile,
-    projects,
-    about,
-    tooltip,
-    contact,
-  },
-  currentLang,
+  greetings: { hello, name, rest, alias, profile, tooltip, contact },
 } = Astro.props;
 ---
 

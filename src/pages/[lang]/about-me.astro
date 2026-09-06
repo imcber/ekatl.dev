@@ -3,27 +3,22 @@ import Header from "../../components/Header.astro";
 import Layout from "../../layouts/Layout.astro";
 import AboutMeComponent from "../../components/About/AboutMe.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
+import { createLocalizedPaths } from "../../i18n/content";
+import { parseLocale } from "../../i18n/config";
 
 export async function getStaticPaths() {
-  const pages = await getCollection("aboutMe");
-
-  const paths = pages.map((page) => {
-    const [lang] = page.id.split("/");
-    return { params: { lang }, props: { page } };
-  });
-
-  return paths;
+  return createLocalizedPaths(await getCollection("aboutMe"));
 }
 
 interface Props {
   page: CollectionEntry<"aboutMe">;
 }
 
-const { lang } = Astro.params;
+const lang = parseLocale(Astro.params.lang);
 const { page } = Astro.props;
 ---
 
-<Layout currentLang={lang}>
-  <Header currentLang={lang} showBackButton isDarkmode />
-  <AboutMeComponent aboutMe={page.data} />
+<Layout currentLang={lang} currentRoute="about">
+  <Header currentLang={lang} currentRoute="about" isDarkmode />
+  <AboutMeComponent aboutMe={page.data} currentLang={lang} />
 </Layout>

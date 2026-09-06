@@ -1,12 +1,50 @@
 ---
 import { ClientRouter } from "astro:transitions";
+import { locales, type Locale } from "../../i18n/config";
+import { assetPath, localizedPath, type RouteId } from "../../i18n/routes";
+
+interface Props {
+  lang: Locale;
+  currentRoute: RouteId;
+}
+const { lang, currentRoute } = Astro.props;
+
+const meta = {
+  es: {
+    title: "Bernardo Ramírez — Desarrollador Fullstack",
+    description:
+      "Portfolio de Bernardo Ramírez, desarrollador fullstack con siete años de experiencia en Java, JavaScript, Python y más.",
+  },
+  en: {
+    title: "Bernardo Ramírez — Fullstack Developer",
+    description:
+      "Portfolio of Bernardo Ramírez, fullstack developer with seven years of experience in Java, JavaScript, Python, and more.",
+  },
+};
+
+const { title, description } = meta[lang];
+const canonicalUrl = new URL(
+  localizedPath(lang, currentRoute),
+  Astro.site ?? Astro.url,
+);
 ---
 
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<meta name="generator" content={Astro.generator} />
+<link rel="icon" type="image/svg+xml" href={assetPath("favicon.svg")} />
+<link rel="canonical" href={canonicalUrl} />
+{
+  locales.map((locale) => (
+    <link
+      rel="alternate"
+      hreflang={locale}
+      href={
+        new URL(localizedPath(locale, currentRoute), Astro.site ?? Astro.url)
+      }
+    />
+  ))
+}
 
-<title>ektl.dev</title>
-<meta name="title" content="ektl.dev" />
-<meta name="description" content="ektl.dev" />
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
 
 <ClientRouter />

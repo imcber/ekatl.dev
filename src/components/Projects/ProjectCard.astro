@@ -5,25 +5,29 @@ import type { Project } from "./ProjectContainer.astro";
 import Coppel from "../../assets/projects/coppel.jpg";
 import Ganalottodo from "../../assets/projects/ganalottodo.jpg";
 import Needed from "../../assets/projects/needed.jpg";
+import Nubia from "../../assets/projects/nubia.jpg";
 import Tar from "../../assets/projects/tar.jpg";
 import Uniken from "../../assets/projects/uniken.jpg";
-import Worqout from "../../assets/projects/worqout.jpg";
+import Wallets from "../../assets/projects/wallets.jpg";
 
 interface Props {
   project: Project;
+  visitSiteLabel: string;
 }
 
 const {
   project: { id, name, about, tags, url },
+  visitSiteLabel,
 } = Astro.props;
 
-const projectImage = {
+const projectImage: Record<string, typeof Tar> = {
+  nubia: Nubia,
+  wallets: Wallets,
   tar: Tar,
   coppel: Coppel,
   needed: Needed,
   ganalottodo: Ganalottodo,
   uniken: Uniken,
-  worqout: Worqout,
 };
 ---
 
@@ -51,7 +55,7 @@ const projectImage = {
     <div class="flex flex-wrap gap-2 mb-4">
       {
         tags
-          .splice(0, 3)
+          .slice(0, 3)
           .map((tag) => (
             <span class="bg-secondary text-principal_light text-xs font-medium px-2 py-0.5 rounded-full">
               {tag}
@@ -66,7 +70,7 @@ const projectImage = {
       rel="noopener noreferrer"
       class="inline-flex items-center justify-center rounded-lg bg-principal_light px-4 py-2 text-sm font-semibold text-gray-900 transition-colors duration-200 hover:bg-principal_light/90 focus:outline-none focus:ring-2 focus:ring-principal_light focus:ring-offset-2 focus:ring-offset-gray-900"
     >
-      Ir al Sitio
+      {visitSiteLabel}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-4 w-4 ml-1"

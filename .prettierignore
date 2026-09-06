@@ -1,0 +1,7 @@
+pnpm-lock.yaml
+CLAUDE.md
+PORTFOLIO_CHANGE_PLAN.md
+dist/
+.astro/
+playwright-report/
+test-results/

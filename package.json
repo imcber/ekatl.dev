@@ -4,10 +4,17 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev --host",
-    "build": "astro build",
+    "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "pnpm exec prettier . --write"
+    "check": "astro check",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "lint": "pnpm format:check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "quality": "pnpm format:check && pnpm check && pnpm test && pnpm build"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.1",
@@ -23,9 +30,13 @@
   },
   "packageManager": "pnpm@10.15.1+sha512.34e538c329b5553014ca8e8f4535997f96180a1d0f614339357449935350d924e22f8614682191264ec33d1462ac21561aff97f6bb18065351c162c7e8f6de67",
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@playwright/test": "^1.62.1",
     "@tailwindcss/line-clamp": "^0.4.4",
     "prettier": "3.6.2",
     "prettier-plugin-astro": "0.14.1",
-    "sharp": "^0.34.4"
+    "sharp": "^0.34.4",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.11"
   }
 }

@@ -4,28 +4,28 @@ import Header from "../../components/Header.astro";
 import Welcome from "../../components/Home/Welcome.astro";
 import Layout from "../../layouts/Layout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
+import { createLocalizedPaths } from "../../i18n/content";
+import { parseLocale } from "../../i18n/config";
+import { assetPath } from "../../i18n/routes";
 
 export async function getStaticPaths() {
-  const pages = await getCollection("home");
-
-  const paths = pages.map((page) => {
-    const [lang] = page.id.split("/");
-    return { params: { lang }, props: { page } };
-  });
-
-  return paths;
+  return createLocalizedPaths(await getCollection("home"));
 }
 
 interface Props {
   page: CollectionEntry<"home">;
 }
 
-const { lang } = Astro.params;
+const lang = parseLocale(Astro.params.lang);
 const { page } = Astro.props;
 ---
 
-<Layout currentLang={lang}>
-  <Header currentLang={lang} />
-  <Welcome greetings={page.data.greetings} currentLang={lang} />
-  <Contact contact={page.data.contact} resumePath={`/ektl.dev/resume/${lang}.pdf`} />
+<Layout currentLang={lang} currentRoute="home">
+  <Header currentLang={lang} currentRoute="home" />
+  <Welcome greetings={page.data.greetings} />
+  <Contact
+    contact={page.data.contact}
+    resumePath={assetPath(`resume/${lang}.pdf`)}
+    resumeFilename={`Bernardo-Ramirez-CV-${lang.toUpperCase()}.pdf`}
+  />
 </Layout>

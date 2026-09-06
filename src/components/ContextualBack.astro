@@ -1,0 +1,59 @@
+---
+import { getCollection } from "astro:content";
+import { type Locale } from "../i18n/config";
+import { localeFromEntryId } from "../i18n/content";
+import { localizedPath } from "../i18n/routes";
+
+interface Props {
+  currentLang: Locale;
+  isDarkmode?: boolean;
+}
+
+const { currentLang, isDarkmode = false } = Astro.props;
+const entryData = (await getCollection("header")).find(
+  (page) => localeFromEntryId(page.id) === currentLang,
+)?.data;
+
+if (!entryData) {
+  throw new Error(
+    `No se encontró la colección 'header' para el idioma: ${currentLang}`,
+  );
+}
+---
+
+<a
+  href={localizedPath(currentLang, "home")}
+  data-history-back
+  class:list={[
+    "mb-3 inline-flex w-fit items-center gap-2 text-base font-medium transition-colors duration-300",
+    isDarkmode
+      ? "text-foreground hover:text-secondary"
+      : "text-secondary_light hover:text-principal",
+  ]}
+  aria-label={entryData.backHome}
+>
+  <span aria-hidden="true">←</span>
+  <span>{entryData.back}</span>
+</a>
+
+<script>
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+
+    const backLink = event.target.closest<HTMLAnchorElement>(
+      "a[data-history-back]",
+    );
+
+    if (!backLink) return;
+
+    const currentHistoryIndex = history.state?.index;
+
+    if (typeof currentHistoryIndex !== "number" || currentHistoryIndex <= 0) {
+      return;
+    }
+
+    event.preventDefault();
+    document.documentElement.dataset.contextualBack = "true";
+    history.back();
+  });
+</script>

@@ -1,5 +1,13 @@
 ---
 import Cards from "./Cards.astro";
+import ContextualBack from "../ContextualBack.astro";
+import type { Locale } from "../../i18n/config";
+
+interface Props {
+  currentLang: Locale;
+}
+
+const { currentLang } = Astro.props;
 
 export interface Tech {
   id: string;
@@ -29,7 +37,10 @@ const techs: Tech[] = [
 ---
 
 <div class="w-full px-4 md:px-7 py-10">
-  <div class="max-w-7xl lg:px-20 mb-6">
+  <div
+    class="mx-auto flex max-w-7xl flex-col items-center lg:items-start lg:px-20 mb-6"
+  >
+    <ContextualBack currentLang={currentLang} />
     <p class="text-5xl font-extrabold text-principal mb-2 text-start">Stack</p>
   </div>
 

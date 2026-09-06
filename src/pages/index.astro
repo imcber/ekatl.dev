@@ -1,1 +1,9 @@
-<meta http-equiv="refresh" content="0;url=/es/" />
+---
+import { defaultLocale } from "../i18n/config";
+import { localizedPath } from "../i18n/routes";
+
+const redirectPath = localizedPath(defaultLocale, "home");
+---
+
+<meta http-equiv="refresh" content={`0;url=${redirectPath}`} />
+<link rel="canonical" href={new URL(redirectPath, Astro.site ?? Astro.url)} />

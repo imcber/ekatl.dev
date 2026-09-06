@@ -25,7 +25,7 @@ const greetingCollection = defineCollection({
       resume: z.string(),
       social: z.array(
         z.object({
-          title: z.string(),
+          title: z.enum(["github", "linkedin", "instagram"]),
           url: z.string(),
         }),
       ),
@@ -58,6 +58,9 @@ const headerCollection = defineCollection({
     generateId: ({ entry }) => entry.replace(/\.json$/, ""),
   }),
   schema: z.object({
+    backHome: z.string(),
+    back: z.string(),
+    home: z.string(),
     "about-me": z.string(),
     projects: z.string(),
     stack: z.string(),
@@ -76,6 +79,7 @@ const projectsCollection = defineCollection({
     title_rol: z.string(),
     title_about: z.string(),
     title_task: z.string(),
+    title_visit_site: z.string(),
     work: z.array(
       z.object({
         id: z.string(),

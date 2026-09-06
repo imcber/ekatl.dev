@@ -1,34 +1,31 @@
 ---
 import CommonHead from "../components/commons/CommonHead.astro";
-import {
-  screenTransition,
-  screenTransitionBack,
-} from "../lib/screenTransition.mjs";
+import { homeTransition, screenTransition } from "../lib/screenTransition.mjs";
+import type { Locale } from "../i18n/config";
+import type { RouteId } from "../i18n/routes";
 import "../styles/global.css";
 import "../styles/screenAnimation.css";
 
 interface Props {
-  currentLang: string;
+  currentLang: Locale;
+  currentRoute: RouteId;
 }
-const { currentLang } = Astro.props;
-
-const isHome = Astro.url.pathname === `/${currentLang}`;
-const activeTransition = isHome ? screenTransitionBack : screenTransition;
+const { currentLang, currentRoute } = Astro.props;
+const pageTransition =
+  currentRoute === "home" ? homeTransition : screenTransition;
 ---
 
 <!doctype html>
-<html
-  lang={currentLang}
-  transition:name="root"
-  transition:animate={activeTransition}
-  class="scroll-smooth"
->
+<html lang={currentLang} class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <CommonHead />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3GFXE31GD8"
+    <CommonHead lang={currentLang} currentRoute={currentRoute} />
+    <script
+      is:inline
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-3GFXE31GD8"
     ></script><script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -41,11 +38,28 @@ const activeTransition = isHome ? screenTransitionBack : screenTransition;
   >
 
   <body class="bg-foreground text-principal noise-container">
-    <main>
+    <main
+      transition:name="page-content"
+      transition:animate={pageTransition}
+      class="min-h-screen bg-foreground"
+    >
       <slot />
     </main>
   </body>
 </html>
+
+<script>
+  document.addEventListener("astro:before-swap", (event) => {
+    const isContextualBack =
+      document.documentElement.dataset.contextualBack === "true";
+
+    delete document.documentElement.dataset.contextualBack;
+
+    if (event.navigationType === "traverse" && !isContextualBack) {
+      event.viewTransition.skipTransition();
+    }
+  });
+</script>
 
 <style>
   html,
@@ -71,7 +85,7 @@ const activeTransition = isHome ? screenTransitionBack : screenTransition;
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><filter id="a" x="0" y="0" width="100%" height="100%"><feTurbulence baseFrequency=".2"/></filter><rect width="100%" height="100%" filter="url(%23a)"/></svg>');
     opacity: 0.06;
 
-    animation: noiseAnimation 0.2s infinite linear;
+    animation: noiseAnimation 0.5s steps(2, end) infinite;
     pointer-events: none;
   }
 
@@ -108,6 +122,16 @@ const activeTransition = isHome ? screenTransitionBack : screenTransition;
     }
     100% {
       transform: translate(0, -5%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    .noise-container::after {
+      animation: none;
     }
   }
 </style>

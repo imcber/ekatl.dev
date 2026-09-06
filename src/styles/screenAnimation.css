@@ -1,21 +1,40 @@
-@keyframes slide-left {
-  0% {
+@keyframes slide-in-right {
+  from {
     transform: translateX(100vw);
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 100%);
+    clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 70% 100%);
   }
-  100% {
+
+  to {
     transform: translateX(0);
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
   }
 }
 
-@keyframes slide-rigth {
-  0% {
+@keyframes slide-in-left {
+  from {
     transform: translateX(-100vw);
-    clip-path: polygon(0% 0%, 100% 0%, 50% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 70% 100%, 30% 100%);
   }
-  100% {
+
+  to {
     transform: translateX(0);
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+}
+
+@keyframes slide-in-top {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(page-content),
+  ::view-transition-new(page-content) {
+    animation: none !important;
   }
 }

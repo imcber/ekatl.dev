@@ -1,6 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import Photo from "../../assets/about-me/me.jpeg";
+import ContextualBack from "../ContextualBack.astro";
+import type { Locale } from "../../i18n/config";
 
 interface TableAbout {
   description: string;
@@ -15,10 +17,12 @@ interface AboutMe {
 
 interface Props {
   aboutMe: AboutMe;
+  currentLang: Locale;
 }
 
 const {
   aboutMe: { hello, about, table },
+  currentLang,
 } = Astro.props;
 ---
 
@@ -29,7 +33,8 @@ const {
     alt="My photo"
     priority
   />
-  <div class="w-full lg:w-7/12 flex flex-col z-10 p-7 lg:p-14 lg:pt-32">
+  <div class="w-full lg:w-7/12 flex flex-col z-10 p-7 lg:p-14 lg:pt-48">
+    <ContextualBack currentLang={currentLang} isDarkmode />
     <p class="text-5xl text-secondary text-left">{hello}</p>
     <p
       class="text-xl lg:text-2xl text-foreground leading-normal font-light mx-0 my-7 lg:m-14 text-justify"

@@ -4,16 +4,27 @@
   "title_rol": "Rol",
   "title_about": "Acerca",
   "title_task": "Actividad",
+  "title_visit_site": "Ir al sitio",
   "work": [
     {
-      "id": "tar",
-      "name": "TAR México",
-      "about": "TAR México es un sistema de reservas de vuelo desarrollado utilizando tecnologías como Java y JavaScript. Tar permite realizar reservas de vuelos y ofrece una variedad de tipos de pago como tarjetas de crédito/débito, efectivo y criptomonedas.",
-      "task": "En TAR, las mejoras en el backend implican añadir funcionalidades en los pagos, facturación, además de corregir errores. Optimizar los flujos de despliegue es fundamental para un sistema más fluido. En el frontend, refactorizar los componentes de clase a hooks, mejorar la gestión del estado y perfeccionar las solicitudes del cliente.",
-      "year": "2022 - Present",
-      "rol": "Fullstack",
+      "id": "nubia",
+      "name": "Nubia",
+      "about": "Nubia es un agente conversacional que permite reservar y cotizar vuelos directamente desde WhatsApp, incluyendo el pago dentro de la misma conversación.",
+      "task": "Desarrollé el backend del agente en Python, integrando un modelo de lenguaje (LLM) para entender al usuario y conectándolo con el motor de reservas. Construido sobre una arquitectura hexagonal y orientada a eventos para una experiencia fluida en el chat.",
+      "year": "2024 - Present",
+      "rol": "Backend",
       "url": "https://tarmexico.com/",
-      "tags": ["js", "java", "spring", "react", "open-pay"]
+      "tags": ["python", "llm", "whatsapp", "event-driven"]
+    },
+    {
+      "id": "wallets",
+      "name": "Migración de Wallets — Ganalottodo",
+      "about": "Sistema de monederos de Ganalottodo, rediseñado hacia una nueva arquitectura basada en Blnk (ledger) que unifica múltiples wallets en un modelo consistente y refuerza la integridad de los saldos.",
+      "task": "Lideré el rediseño y la migración del sistema de monederos. Me encargué del diseño de la migración y del traspaso seguro de datos y saldos, con backend en Java y Spring.",
+      "year": "2024 - 2025",
+      "rol": "Backend",
+      "url": "https://www.ganalottodo.com/",
+      "tags": ["java", "spring", "blnk", "ledger"]
     },
     {
       "id": "coppel",
@@ -26,14 +37,14 @@
       "tags": ["kotlin", "compose", "android", "firebase"]
     },
     {
-      "id": "ganalottodo",
-      "name": "Ganalottodo",
-      "about": "Ganalottodo es un sitio autorizado por Pronósticos que permite a los usuarios participar y disfrutar de los juegos y sorteos de su preferencia. Durante 2022 desarrollamos un sistema de distribución de boletos para la rifa de unos boletos para el mundial de ese mismo año, el producto se llamó 'Lánzate al mundial'.",
-      "task": "Entré en este proyecto principalmente para el desarrollo del sistema de rifas para el mundial, agregando diferentes funciones para la correcta selección del ganador. Una vez terminado el producto, le di mantenimiento a los servicios de la plataforma.",
-      "year": "2021 - 2022",
-      "rol": "Backend",
-      "url": "https://www.ganalottodo.com/#/landing/home",
-      "tags": ["angular", "java", "spring", "nodejs"]
+      "id": "tar",
+      "name": "TAR México",
+      "about": "TAR México es un sistema de reservas de vuelo desarrollado utilizando tecnologías como Java y JavaScript. Tar permite realizar reservas de vuelos y ofrece una variedad de tipos de pago como tarjetas de crédito/débito, efectivo y criptomonedas.",
+      "task": "En TAR, las mejoras en el backend implican añadir funcionalidades en los pagos, facturación, además de corregir errores. Optimizar los flujos de despliegue es fundamental para un sistema más fluido. En el frontend, refactorizar los componentes de clase a hooks, mejorar la gestión del estado y perfeccionar las solicitudes del cliente.",
+      "year": "2022 - Present",
+      "rol": "Fullstack",
+      "url": "https://tarmexico.com/",
+      "tags": ["js", "java", "spring", "react", "open-pay"]
     },
     {
       "id": "needed",
@@ -54,16 +65,6 @@
       "rol": "Backend",
       "url": "https://www.uniken.com/",
       "tags": ["python", "js", "fastApi", "mongo"]
-    },
-    {
-      "id": "nebular",
-      "name": "Nebular",
-      "about": "La idea de Nebular es ser el mejor sistema de pagos del mundo utilizando criptomonedas, haciendo que los pagos sean reducidos e instantaneos.",
-      "task": "Como Fullstack me dedique a coordinar los servicios con la UI de manera efectiva y correcta, ademas de mantener el Backend.",
-      "year": "2021 - 2022",
-      "rol": "Fullstack",
-      "url": "/",
-      "tags": ["react", "nodejs", "js"]
     }
   ]
 }
